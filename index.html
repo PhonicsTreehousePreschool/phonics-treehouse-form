@@ -503,6 +503,8 @@
                 </div>
             </div>
         </section>
+        <input type="hidden" id="subject-child-name" name="subject_child_name">
+        <input type="hidden" id="contact-name" name="contact_name">
         <button type="submit">Submit Form</button>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -580,6 +582,15 @@
                     var submitButton = form.querySelector('button[type="submit"]');
                     submitButton.disabled = true;
                     submitButton.textContent = 'Submitting...';
+
+                    var childFirstName = document.getElementById('child-first-name').value.trim();
+                    var childLastName = document.getElementById('child-last-name').value.trim();
+
+                    document.getElementById('subject-child-name').value =
+                        childFirstName + ' ' + childLastName;
+
+                    document.getElementById('contact-name').value =
+                        guardian1First || guardian2First;
 
                     emailjs.sendForm(
                         'service_yv0j6j8',
