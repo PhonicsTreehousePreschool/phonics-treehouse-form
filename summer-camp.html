@@ -123,6 +123,16 @@
         </section>
 
         <section>
+            <h2>Confirmation Contact</h2>
+
+            <label for="contact-name" class="required">Who should receive the confirmation email?</label>
+            <input id="contact-name" name="contact_name" type="text" required>
+
+            <label for="contact-email" class="required">Contact Email</label>
+            <input id="contact-email" name="recipient_email" type="email" required>
+        </section>
+
+        <section>
             <h2>Mother / Female Guardian</h2>
             <label for="mother-name">Mother or Female Guardian's Name</label>
             <input id="mother-name" name="mother-name" type="text">
@@ -170,26 +180,12 @@
         <input type="hidden" name="service_id" value="service_iiark4v">
         <input type="hidden" name="public_key" value="acWjVPeC8L1j3KXy9">
         <input type="hidden" name="template_id" value="template_sidrwn8">
-        <input type="hidden" id="recipient-email" name="recipient_email">
-        <input type="hidden" id="recipient-name" name="recipient_name">
         <input type="hidden" id="child-name" name="child_name">
 
         <button type="submit">Submit</button>
     </form>
 
     <script>
-        var motherName = document.getElementById('mother-name').value.trim();
-        var motherEmail = document.getElementById('mother-email').value.trim();
-        var fatherName = document.getElementById('father-name').value.trim();
-        var fatherEmail = document.getElementById('father-email').value.trim();
-
-        var childFirst = document.getElementById('child-first').value.trim();
-        var childLast = document.getElementById('child-last').value.trim();
-
-        document.getElementById('child-name').value = childFirst + ' ' + childLast;
-
-        document.getElementById('recipient-email').value = motherEmail || fatherEmail;
-        document.getElementById('recipient-name').value = motherName || fatherName;
         // set today's date for the signing date
         document.addEventListener('DOMContentLoaded', function(){
             var signDate = document.getElementById('sign-date');
@@ -224,11 +220,16 @@
                 form.addEventListener('submit', function(e){
                     var mother = document.getElementById('mother-name').value.trim();
                     var father = document.getElementById('father-name').value.trim();
+
                     if(!mother && !father){
                         e.preventDefault();
                         alert('Please provide the name for either the mother/female guardian or the father/male guardian.');
                         return false;
                     }
+
+                    var childFirst = document.getElementById('child-first').value.trim();
+                    var childLast = document.getElementById('child-last').value.trim();
+                    document.getElementById('child-name').value = childFirst + ' ' + childLast;
                 });
             }
         });
