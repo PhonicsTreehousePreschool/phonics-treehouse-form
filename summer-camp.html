@@ -184,55 +184,94 @@
 
         <button type="submit">Submit</button>
     </form>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    <script>
-        // set today's date for the signing date
-        document.addEventListener('DOMContentLoaded', function(){
-            var signDate = document.getElementById('sign-date');
-            if(signDate){
-                var today = new Date();
-                var yyyy = today.getFullYear();
-                var mm = String(today.getMonth()+1).padStart(2,'0');
-                var dd = String(today.getDate()).padStart(2,'0');
-                signDate.value = yyyy+"-"+mm+"-"+dd;
+<script>
+    emailjs.init({
+        publicKey: "acWjVPeC8L1j3KXy9"
+    });
+
+    document.addEventListener('DOMContentLoaded', function(){
+        var signDate = document.getElementById('sign-date');
+
+        if(signDate){
+            var today = new Date();
+            var yyyy = today.getFullYear();
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var dd = String(today.getDate()).padStart(2, '0');
+            signDate.value = yyyy + "-" + mm + "-" + dd;
+        }
+
+        function toggleGroup(selectId, groupId, detailId){
+            var sel = document.getElementById(selectId);
+            var grp = document.getElementById(groupId);
+            var detail = detailId ? document.getElementById(detailId) : null;
+
+            if(!sel || !grp) return;
+
+            function update(){
+                var show = sel.value === 'Yes';
+                grp.classList.toggle('hidden', !show);
+                if(detail) detail.required = show;
             }
 
-            function toggleGroup(selectId, groupId, detailId){
-                var sel = document.getElementById(selectId);
-                var grp = document.getElementById(groupId);
-                var detail = detailId ? document.getElementById(detailId) : null;
-                if(!sel || !grp) return;
-                function update(){
-                    var show = sel.value === 'Yes';
-                    grp.classList.toggle('hidden', !show);
-                    if(detail) detail.required = show;
+            update();
+            sel.addEventListener('change', update);
+        }
+
+        toggleGroup('allergies-s', 'allergy-group-s', 'allergy-text-s');
+        toggleGroup('conditions-s', 'conditions-group-s', 'conditions-text-s');
+
+        var form = document.querySelector('.registration-form');
+
+        if(form){
+            form.addEventListener('submit', function(e){
+                e.preventDefault();
+
+                var mother = document.getElementById('mother-name').value.trim();
+                var father = document.getElementById('father-name').value.trim();
+
+                if(!mother && !father){
+                    alert('Please provide the name for either the mother/female guardian or the father/male guardian.');
+                    return false;
                 }
-                update();
-                sel.addEventListener('change', update);
-            }
 
-            toggleGroup('allergies-s','allergy-group-s','allergy-text-s');
-            toggleGroup('conditions-s','conditions-group-s','conditions-text-s');
+                var childFirst = document.getElementById('child-first').value.trim();
+                var childLast = document.getElementById('child-last').value.trim();
+                document.getElementById('child-name').value = childFirst + ' ' + childLast;
 
-            // guardian presence validation: at least one guardian name required
-            var form = document.querySelector('.registration-form');
-            if(form){
-                form.addEventListener('submit', function(e){
-                    var mother = document.getElementById('mother-name').value.trim();
-                    var father = document.getElementById('father-name').value.trim();
+                var submitButton = form.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
 
-                    if(!mother && !father){
-                        e.preventDefault();
-                        alert('Please provide the name for either the mother/female guardian or the father/male guardian.');
-                        return false;
+                emailjs.sendForm(
+                    'service_iiark4v',
+                    'template_sidrwn8',
+                    form
+                ).then(function(){
+                    alert('Summer camp registration submitted successfully!');
+                    form.reset();
+
+                    if(signDate){
+                        var today = new Date();
+                        var yyyy = today.getFullYear();
+                        var mm = String(today.getMonth() + 1).padStart(2, '0');
+                        var dd = String(today.getDate()).padStart(2, '0');
+                        signDate.value = yyyy + "-" + mm + "-" + dd;
                     }
 
-                    var childFirst = document.getElementById('child-first').value.trim();
-                    var childLast = document.getElementById('child-last').value.trim();
-                    document.getElementById('child-name').value = childFirst + ' ' + childLast;
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit';
+                }).catch(function(error){
+                    console.error('EmailJS error:', error);
+                    alert('Something went wrong while submitting the form. Please try again.');
+
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit';
                 });
-            }
-        });
-    </script>
+            });
+        }
+    });
+</script>
 </body>
 </html>
