@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phonics Registration Form</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #111827;
+            background: #f8fafc;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            min-height: 100%;
+        }
+
+        body {
+            background: linear-gradient(180deg, #ffedd5 0%, #fed7aa 45%, #fb923c 100%);
+            padding: 1rem;
+        }
+
+        body::before {
+            content: "";
+            display: block;
+            height: 1rem;
+        }
+
+        .registration-form {
+            max-width: 1120px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #f97316 0%, #fb923c 100%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 28px;
+            box-shadow: 0 24px 80px rgba(15, 23, 42, 0.18);
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 1.5rem;
+            text-align: left;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .page-header .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.18);
+            width: fit-content;
+        }
+
+        .page-header .logo img {
+            display: block;
+            height: 144px;
+            width: auto;
+        }
+
+        .page-header .eyebrow {
+            margin: 0 0 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 0.78rem;
+            color: #2563eb;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: clamp(2rem, 2.5vw, 2.6rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            color: #0f172a;
+        }
+
+        .page-header .lead {
+            margin: 0.75rem 0 0;
+            max-width: 760px;
+            color: #475569;
+        }
+
+        section {
+            margin-bottom: 1.75rem;
+            padding: 1.3rem 1.4rem;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 22px;
+        }
+
+        section h2 {
+            margin: 0 0 1rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        section h3 {
+            margin: 0 0 0.85rem;
+            font-size: 0.95rem;
+            color: #1f2937;
+        }
+
+        label {
+            display: block;
+            margin: 0.75rem 0 0.35rem;
+            color: #334155;
+            font-size: 0.95rem;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            font: inherit;
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            background: #f8fafc;
+            padding: 0.95rem 1rem;
+            color: #0f172a;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: none;
+            overflow: auto;
+        }
+
+        .conditional-group {
+            margin-top: 0.75rem;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .conditional-group.hidden {
+            display: none;
+        }
+
+        .contact-section,
+        .siblings-section,
+        .pickup-section,
+        .agreement-section {
+            padding: 1.5rem;
+        }
+
+        .guardian,
+        .sibling {
+            display: grid;
+            gap: 0.9rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 1.3rem;
+        }
+
+        fieldset {
+            padding: 1rem 1rem 0.8rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            margin: 0.9rem 0 0;
+        }
+
+        legend {
+            font-weight: 700;
+            color: #0f172a;
+            padding: 0 0.25rem;
+        }
+
+        fieldset label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin: 0.55rem 0 0;
+            font-size: 0.95rem;
+        }
+
+        button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1rem 1.2rem;
+            margin-top: 0.75rem;
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 16px 30px rgba(37, 99, 235, 0.15);
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 2rem;
+            }
+
+            .registration-form {
+                padding: 2.5rem;
+            }
+
+            .contact-section,
+            .siblings-section {
+                display: grid;
+                gap: 1.5rem;
+            }
+
+            .contact-section .guardian {
+                margin-top: 0;
+            }
+
+            .form-grid--two {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 1.25rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            section {
+                padding: 1.2rem;
+            }
+
+            .guardian,
+            .sibling {
+                padding: 1rem;
+            }
+
+            label {
+                margin-top: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="logo">
+            <img src="../imgs/phncs-logo.png" alt="Phonics Treehouse Logo">
+        </div>
+        <p class="eyebrow">Preschool Registration</p>
+        <h1>Phonics Treehouse Enrollment</h1>
+        <p class="lead">Complete the form below to enroll your child and provide emergency, medical, and contact details.</p>
+    </header>
+    <form class="registration-form" method="post" action="#">
+        <section class="childs-name-section">
+            <h2>Child's Full Name</h2>
+            <label for="child-first-name">First Name</label>
+            <input type="text" id="child-first-name" name="child-first-name" required>
+            <label for="child-last-name">Last Name</label>
+            <input type="text" id="child-last-name" name="child-last-name" required>
+        </section>
+        <section class="dob-section">
+            <h2>Date Of Birth</h2>
+            <label for="child-dob">Child Date Of Birth</label>
+            <input type="date" id="child-dob" name="child-dob" required>
+        </section>
+        <section class="allergy-section">
+            <h2>Does your child have any allergies?</h2>
+            <label for="allergies">Select one</label>
+            <select name="allergies" id="allergies">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+            <div class="conditional-group" id="allergy-group">
+                <label for="allergy-text">Describe allergies</label>
+                <textarea name="allergy-text" id="allergy-text" placeholder="Please explain your child's allergies"></textarea>
+            </div>
+        </section>
+        <section class="medicines-section">
+            <h2>Will any medicines need to be administered during school?</h2>
+            <label for="medicines">Select one</label>
+            <select name="medicines" id="medicines">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+            <div class="conditional-group" id="medicines-group">
+                <label for="medicines-text">Describe medicines</label>
+                <textarea name="medicines-text" id="medicines-text" placeholder="Please explain your child's medicines"></textarea>
+            </div>
+        </section>
+        <section class="conditions-section">
+            <h2>Does your child have any conditions that will affect play/learning?</h2>
+            <label for="affect-play">Select one</label>
+            <select name="affect-play" id="affect-play">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+            <div class="conditional-group" id="conditions-group">
+                <label for="play-text">Describe conditions</label>
+                <textarea name="play-text" id="play-text" placeholder="Please explain these conditions"></textarea>
+            </div>
+        </section>
+        <section class="address-section">
+            <h2>Address</h2>
+            <label for="street-add1">Street Address 1</label>
+            <input type="text" id="street-add1" name="street-add1">
+            <label for="street-add2">Street Address 2</label>
+            <input type="text" id="street-add2" name="street-add2">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city">
+            <label for="state">State</label>
+            <input type="text" id="state" name="state">
+            <label for="postal-zip-code">Postal / ZIP Code</label>
+            <input type="text" id="postal-zip-code" name="postal-zip-code">
+        </section>
+        <section class="contact-section">
+            <h2>Parent / Guardian Contact Information</h2>
+            <div class="guardian guardian-1">
+                <h3>Mother or Female Guardian</h3>
+                <label for="guardian1-first">First Name</label>
+                <input type="text" id="guardian1-first" name="guardian1-first">
+                <label for="guardian1-last">Last Name</label>
+                <input type="text" id="guardian1-last" name="guardian1-last">
+            </div>
+            <div class="guardian guardian-2">
+                <h3>Father or Male Guardian</h3>
+                <label for="guardian2-first">First Name</label>
+                <input type="text" id="guardian2-first" name="guardian2-first">
+                <label for="guardian2-last">Last Name</label>
+                <input type="text" id="guardian2-last" name="guardian2-last">
+            </div>
+            <label for="work-number">Parent or Guardian Work Number</label>
+            <input type="tel" id="work-number" name="work-number" placeholder="(000) 000-0000">
+            <label for="cell-number">Parent or Guardian Cell Number *</label>
+            <input type="tel" id="cell-number" name="cell-number" placeholder="(000) 000-0000" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+            <label for="home-phone">Home Phone</label>
+            <input type="tel" id="home-phone" name="home-phone" placeholder="(000) 000-0000">
+            <label for="parents-are">Parents Are</label>
+            <select name="parents-are" id="parents-are">
+                <option value="">Please select</option>
+                <option value="Married">Married</option>
+                <option value="Separated">Separated</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Single">Single</option>
+                <option value="Other">Other</option>
+            </select>
+            <fieldset>
+                <legend>Are there any special custody arrangements?</legend>
+                <label>
+                    <input type="radio" name="custody-arrangements" value="No" checked> No
+                </label>
+                <label>
+                    <input type="radio" name="custody-arrangements" value="Yes"> Yes
+                </label>
+            </fieldset>
+            <label for="custody-details">If yes, please explain</label>
+            <textarea name="custody-details" id="custody-details" placeholder="Please explain any special custody arrangements"></textarea>
+        </section>
+        <section class="siblings-section">
+            <h2>Siblings</h2>
+            <div class="sibling sibling-1">
+                <h3>Sibling 1</h3>
+                <label for="sibling1-name">Name</label>
+                <input type="text" id="sibling1-name" name="sibling1-name">
+                <label for="sibling1-gender">Gender</label>
+                <select name="sibling1-gender" id="sibling1-gender">
+                    <option value="">Please select</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Non-binary">Non-binary</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+                <label for="sibling1-dob">Date Of Birth</label>
+                <input type="date" id="sibling1-dob" name="sibling1-dob">
+            </div>
+            <div class="sibling sibling-2">
+                <h3>Sibling 2</h3>
+                <label for="sibling2-name">Name</label>
+                <input type="text" id="sibling2-name" name="sibling2-name">
+                <label for="sibling2-gender">Gender</label>
+                <select name="sibling2-gender" id="sibling2-gender">
+                    <option value="">Please select</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Non-binary">Non-binary</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+                <label for="sibling2-dob">Date Of Birth</label>
+                <input type="date" id="sibling2-dob" name="sibling2-dob">
+            </div>
+            <div class="sibling sibling-3">
+                <h3>Sibling 3</h3>
+                <label for="sibling3-name">Name</label>
+                <input type="text" id="sibling3-name" name="sibling3-name">
+                <label for="sibling3-gender">Gender</label>
+                <select name="sibling3-gender" id="sibling3-gender">
+                    <option value="">Please select</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Non-binary">Non-binary</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+                <label for="sibling3-dob">Date Of Birth</label>
+                <input type="date" id="sibling3-dob" name="sibling3-dob">
+            </div>
+            <div class="sibling sibling-4">
+                <h3>Sibling 4</h3>
+                <label for="sibling4-name">Name</label>
+                <input type="text" id="sibling4-name" name="sibling4-name">
+                <label for="sibling4-gender">Gender</label>
+                <select name="sibling4-gender" id="sibling4-gender">
+                    <option value="">Please select</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Non-binary">Non-binary</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+                <label for="sibling4-dob">Date Of Birth</label>
+                <input type="date" id="sibling4-dob" name="sibling4-dob">
+            </div>
+        </section>
+        <section class="pickup-section">
+            <h2>Authorized Pick-up Contacts</h2>
+            <label for="pickup-contacts">List individuals authorized to pick up your child</label>
+            <textarea id="pickup-contacts" name="pickup-contacts" placeholder="E.G. John Smith, Uncle, Contact Number: (888) 888-8888"></textarea>
+        </section>
+        <section class="agreement-section">
+            <h2>Agreement</h2>
+            <p>I agree to pay the monthly tuition by the first class of each month, as well as the non-refundable registration fee to reserve my child’s place and pay for his/her school supplies. I give permission for my child’s photograph(s) and/or videotaping(s) to be used for preschool marketing materials offline and online, newsletters, and art projects. I agree to abide by the Policies & Procedures Handbook which has been explained to me. I also agree to provide a payment of $50 upon submission, to validate this form.</p>
+            <label for="agreement">
+                <input type="checkbox" id="agreement" name="agreement" required>
+                By signing this document, I agree to the Terms & Conditions listed at the bottom of this document.
+            </label>
+            <label for="signature">Signature of Parent/Guardian *</label>
+            <input type="text" id="signature" name="signature" required>
+            <label for="signature-date">Date Of Signing *</label>
+            <input type="date" id="signature-date" name="signature-date" required>
+        </section>
+        <button type="submit">Submit Form</button>
+    </form>
+    <script>
+        function setConditionalGroup(selectId, groupId) {
+            var select = document.getElementById(selectId);
+            var group = document.getElementById(groupId);
+            if (!select || !group) return;
+            group.classList.toggle('hidden', select.value === 'No');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var signatureDate = document.getElementById('signature-date');
+            if (signatureDate) {
+                var today = new Date();
+                var year = today.getFullYear();
+                var month = String(today.getMonth() + 1).padStart(2, '0');
+                var day = String(today.getDate()).padStart(2, '0');
+                signatureDate.value = year + '-' + month + '-' + day;
+            }
+
+            var conditionalMap = [
+                { select: 'allergies', group: 'allergy-group' },
+                { select: 'medicines', group: 'medicines-group' },
+                { select: 'affect-play', group: 'conditions-group' }
+            ];
+
+            conditionalMap.forEach(function (entry) {
+                var select = document.getElementById(entry.select);
+                if (!select) return;
+                setConditionalGroup(entry.select, entry.group);
+                select.addEventListener('change', function () {
+                    setConditionalGroup(entry.select, entry.group);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
