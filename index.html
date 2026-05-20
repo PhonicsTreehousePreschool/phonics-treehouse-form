@@ -118,6 +118,12 @@
             font-size: 0.95rem;
         }
 
+        label.required::after {
+            content: " *";
+            color: #dc2626;
+            font-weight: 700;
+        }
+
         .agreement-section label[for="agreement"] {
             display: flex;
             align-items: flex-start;
@@ -299,23 +305,24 @@
         <h1>Phonics Treehouse Enrollment</h1>
         <p class="lead">Complete the form below to enroll your child and provide emergency, medical, and contact details.</p>
     </header>
-    <form class="registration-form" method="post" action="#">
+    <form id="registration-form" class="registration-form">
         <section class="childs-name-section">
             <h2>Child's Full Name</h2>
-            <label for="child-first-name">First Name</label>
+            <label for="child-first-name" class="required">First Name</label>
             <input type="text" id="child-first-name" name="child-first-name" required>
-            <label for="child-last-name">Last Name</label>
+            <label for="child-last-name" class="required">Last Name</label>
             <input type="text" id="child-last-name" name="child-last-name" required>
         </section>
         <section class="dob-section">
             <h2>Date Of Birth</h2>
-            <label for="child-dob">Child Date Of Birth</label>
+            <label for="child-dob" class="required">Child Date Of Birth</label>
             <input type="date" id="child-dob" name="child-dob" required>
         </section>
         <section class="allergy-section">
             <h2>Does your child have any allergies?</h2>
-            <label for="allergies">Select one</label>
-            <select name="allergies" id="allergies">
+            <label for="allergies" class="required">Select one</label>
+            <select name="allergies" id="allergies" required>
+                <option value="" disabled selected>Please select</option>
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
             </select>
@@ -326,8 +333,9 @@
         </section>
         <section class="medicines-section">
             <h2>Will any medicines need to be administered during school?</h2>
-            <label for="medicines">Select one</label>
-            <select name="medicines" id="medicines">
+            <label for="medicines" class="required">Select one</label>
+            <select name="medicines" id="medicines" required>
+                <option value="" disabled selected>Please select</option>
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
             </select>
@@ -338,8 +346,9 @@
         </section>
         <section class="conditions-section">
             <h2>Does your child have any conditions that will affect play/learning?</h2>
-            <label for="affect-play">Select one</label>
-            <select name="affect-play" id="affect-play">
+            <label for="affect-play" class="required">Select one</label>
+            <select name="affect-play" id="affect-play" required>
+                <option value="" disabled selected>Please select</option>
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
             </select>
@@ -350,19 +359,19 @@
         </section>
         <section class="address-section">
             <h2>Address</h2>
-            <label for="street-add1">Street Address 1</label>
-            <input type="text" id="street-add1" name="street-add1">
+            <label for="street-add1" class="required">Street Address 1</label>
+            <input type="text" id="street-add1" name="street-add1" required>
             <label for="street-add2">Street Address 2</label>
             <input type="text" id="street-add2" name="street-add2">
-            <label for="city">City</label>
-            <input type="text" id="city" name="city">
-            <label for="state">State</label>
-            <input type="text" id="state" name="state">
-            <label for="postal-zip-code">Postal / ZIP Code</label>
-            <input type="text" id="postal-zip-code" name="postal-zip-code">
+            <label for="city" class="required">City</label>
+            <input type="text" id="city" name="city" required>
+            <label for="state" class="required">State</label>
+            <input type="text" id="state" name="state" required>
+            <label for="postal-zip-code" class="required">Postal / ZIP Code</label>
+            <input type="text" id="postal-zip-code" name="postal-zip-code" required>
         </section>
         <section class="contact-section">
-            <h2>Parent / Guardian Contact Information</h2>
+            <h2>Parent / Guardian Contact Information (one required)</h2>
             <div class="guardian guardian-1">
                 <h3>Mother or Female Guardian</h3>
                 <label for="guardian1-first">First Name</label>
@@ -379,15 +388,15 @@
             </div>
             <label for="work-number">Parent or Guardian Work Number</label>
             <input type="tel" id="work-number" name="work-number" placeholder="(000) 000-0000">
-            <label for="cell-number">Parent or Guardian Cell Number *</label>
+            <label for="cell-number" class="required">Parent or Guardian Cell Number</label>
             <input type="tel" id="cell-number" name="cell-number" placeholder="(000) 000-0000" required>
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email">
-            <label for="home-phone">Home Phone</label>
-            <input type="tel" id="home-phone" name="home-phone" placeholder="(000) 000-0000">
-            <label for="parents-are">Parents Are</label>
-            <select name="parents-are" id="parents-are">
-                <option value="">Please select</option>
+            <label for="email" class="required">Email</label>
+            <input type="email" id="email" name="email" required>
+            <label for="home-phone" class="required">Home Phone</label>
+            <input type="tel" id="home-phone" name="home-phone" placeholder="(000) 000-0000" required>
+            <label for="parents-are" class="required">Parents Are</label>
+            <select name="parents-are" id="parents-are" required>
+                <option value="" disabled selected>Please select</option>
                 <option value="Married">Married</option>
                 <option value="Separated">Separated</option>
                 <option value="Divorced">Divorced</option>
@@ -403,8 +412,10 @@
                     <input type="radio" name="custody-arrangements" value="Yes"> Yes
                 </label>
             </fieldset>
-            <label for="custody-details">If yes, please explain</label>
-            <textarea name="custody-details" id="custody-details" placeholder="Please explain any special custody arrangements"></textarea>
+            <div class="conditional-group hidden" id="custody-group">
+                <label for="custody-details">If yes, please explain</label>
+                <textarea name="custody-details" id="custody-details" placeholder="Please explain any special custody arrangements"></textarea>
+            </div>
         </section>
         <section class="siblings-section">
             <h2>Siblings</h2>
@@ -471,30 +482,36 @@
         </section>
         <section class="pickup-section">
             <h2>Authorized Pick-up Contacts</h2>
-            <label for="pickup-contacts">List individuals authorized to pick up your child</label>
-            <textarea id="pickup-contacts" name="pickup-contacts" placeholder="E.G. John Smith, Uncle, Contact Number: (888) 888-8888"></textarea>
+            <label for="pickup-contacts" class="required">List individuals authorized to pick up your child</label>
+            <textarea id="pickup-contacts" name="pickup-contacts" placeholder="E.G. John Smith, Uncle, Contact Number: (888) 888-8888" required></textarea>
         </section>
         <section class="agreement-section">
             <h2>Agreement</h2>
             <p>I agree to pay the monthly tuition by the first class of each month, as well as the non-refundable registration fee to reserve my child’s place and pay for his/her school supplies. I give permission for my child’s photograph(s) and/or videotaping(s) to be used for preschool marketing materials offline and online, newsletters, and art projects. I agree to abide by the Policies & Procedures Handbook which has been explained to me. I also agree to provide a payment of $50 upon submission, to validate this form.</p>
-            <label for="agreement">
+            <label for="agreement" class="required">
                 <input type="checkbox" id="agreement" name="agreement" required>
                 By signing this document, I agree to the Terms & Conditions listed at the bottom of this document.
             </label>
             <div class="agreement-signing">
                 <div>
-                    <label for="signature">Signature of Parent/Guardian *</label>
+                    <label for="signature" class="required">Signature of Parent/Guardian</label>
                     <input type="text" id="signature" name="signature" required>
                 </div>
                 <div>
-                    <label for="signature-date">Date Of Signing *</label>
+                    <label for="signature-date" class="required">Date Of Signing</label>
                     <input type="date" id="signature-date" name="signature-date" required>
                 </div>
             </div>
         </section>
         <button type="submit">Submit Form</button>
     </form>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <script>
+        emailjs.init({
+            publicKey: "c2CjUbi8QVRMag_dg"
+        });
+
         function setConditionalGroup(selectId, groupId) {
             var select = document.getElementById(selectId);
             var group = document.getElementById(groupId);
@@ -526,6 +543,70 @@
                     setConditionalGroup(entry.select, entry.group);
                 });
             });
+
+            var custodyGroup = document.getElementById('custody-group');
+            var custodyRadios = document.querySelectorAll('input[name="custody-arrangements"]');
+            var custodyDetails = document.getElementById('custody-details');
+
+            function updateCustodyGroup() {
+                if (!custodyGroup || !custodyDetails) return;
+                var selected = document.querySelector('input[name="custody-arrangements"]:checked');
+                var show = selected && selected.value === 'Yes';
+                custodyGroup.classList.toggle('hidden', !show);
+                custodyDetails.required = show;
+            }
+
+            custodyRadios.forEach(function (radio) {
+                radio.addEventListener('change', updateCustodyGroup);
+            });
+
+            updateCustodyGroup();
+
+            var form = document.getElementById('registration-form');
+            if (form) {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    var guardian1First = document.getElementById('guardian1-first').value.trim();
+                    var guardian1Last = document.getElementById('guardian1-last').value.trim();
+                    var guardian2First = document.getElementById('guardian2-first').value.trim();
+                    var guardian2Last = document.getElementById('guardian2-last').value.trim();
+
+                    if (!(guardian1First && guardian1Last) && !(guardian2First && guardian2Last)) {
+                        alert('Please provide the name for either the mother/female guardian or the father/male guardian.');
+                        return;
+                    }
+
+                    var submitButton = form.querySelector('button[type="submit"]');
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Submitting...';
+
+                    emailjs.sendForm(
+                        'service_yv0j6j8',
+                        'template_jxfodpp',
+                        form
+                    ).then(function () {
+                        alert('Registration submitted successfully!');
+                        form.reset();
+
+                        if (signatureDate) {
+                            var today = new Date();
+                            var year = today.getFullYear();
+                            var month = String(today.getMonth() + 1).padStart(2, '0');
+                            var day = String(today.getDate()).padStart(2, '0');
+                            signatureDate.value = year + '-' + month + '-' + day;
+                        }
+
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Submit Form';
+                    }).catch(function (error) {
+                        console.error('EmailJS error:', error);
+                        alert('Something went wrong while submitting the form. Please try again.');
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Submit Form';
+                    });
+                });
+            }
         });
     </script>
 </body>
