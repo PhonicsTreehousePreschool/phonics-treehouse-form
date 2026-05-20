@@ -118,6 +118,30 @@
             font-size: 0.95rem;
         }
 
+        .agreement-section label[for="agreement"] {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+            line-height: 1.4;
+        }
+
+        .agreement-section label[for="agreement"] input {
+            margin-top: 0.2rem;
+        }
+
+        .agreement-section .agreement-signing {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .agreement-section .agreement-signing {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
         input,
         select,
         textarea {
@@ -457,10 +481,16 @@
                 <input type="checkbox" id="agreement" name="agreement" required>
                 By signing this document, I agree to the Terms & Conditions listed at the bottom of this document.
             </label>
-            <label for="signature">Signature of Parent/Guardian *</label>
-            <input type="text" id="signature" name="signature" required>
-            <label for="signature-date">Date Of Signing *</label>
-            <input type="date" id="signature-date" name="signature-date" required>
+            <div class="agreement-signing">
+                <div>
+                    <label for="signature">Signature of Parent/Guardian *</label>
+                    <input type="text" id="signature" name="signature" required>
+                </div>
+                <div>
+                    <label for="signature-date">Date Of Signing *</label>
+                    <input type="date" id="signature-date" name="signature-date" required>
+                </div>
+            </div>
         </section>
         <button type="submit">Submit Form</button>
     </form>
