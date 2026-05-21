@@ -177,9 +177,6 @@
         </section>
 
         <!-- Hidden keys provided -->
-        <input type="hidden" name="service_id" value="service_iiark4v">
-        <input type="hidden" name="public_key" value="acWjVPeC8L1j3KXy9">
-        <input type="hidden" name="template_id" value="template_sidrwn8">
         <input type="hidden" id="child-name" name="child_name">
 
         <button type="submit">Submit</button>
@@ -264,7 +261,18 @@
                     submitButton.textContent = 'Submit';
                 }).catch(function(error){
                     console.error('EmailJS error:', error);
-                    alert('Something went wrong while submitting the form. Please try again.');
+
+                    var errorMessage = 'Something went wrong while submitting the form.';
+
+                    if (error && error.text) {
+                        errorMessage += '\n\nEmailJS says: ' + error.text;
+                    }
+
+                    if (error && error.status) {
+                        errorMessage += '\nStatus: ' + error.status;
+                    }
+
+                    alert(errorMessage);
 
                     submitButton.disabled = false;
                     submitButton.textContent = 'Submit';
